@@ -1,0 +1,20 @@
+<PauseScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDLabel:
+        id: timer_label
+        text: str(root.pause_time)
+        halign: "center"
+        font_style: "Display"
+        role: "large"
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+    MDExtendedFabButton:
+        id: button_skip_pause
+        pos_hint: {"center_x": .5, "center_y": .1}
+        fab_state: "expand"
+        on_press: root.skip_pause()
+        MDExtendedFabButtonIcon:
+            icon: "check-bold"
+        MDExtendedFabButtonText:
+            text: "Skip"

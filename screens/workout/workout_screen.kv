@@ -1,0 +1,46 @@
+<BodyWeightItem>:
+    on_press: app.root.current = "bodyweight"
+    MDListItemHeadlineText:
+        text: "Track Body Weight"
+
+
+<WorkoutListItem>:
+    id: root.id
+    MDListItemHeadlineText:
+        text: root.name
+
+
+<AdditionalExercise>:
+    MDListItemHeadlineText:
+        text: "+"
+        color: "gray"
+        halign: "center"
+
+
+<WorkoutScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDStackLayout:
+        orientation: "tb-lr"
+
+        MDScrollView:
+            size_hint_y: None
+            adaptive_height: True
+            height: min(root.ids.workout_list.height, root.height * .85)
+            do_scroll_x: False
+            MDList:
+                md_bg_color: app.theme_cls.secondaryColor
+                id: workout_list
+                adaptive_height: True
+
+        MDFloatLayout:
+            size_hint_y: .15
+            MDExtendedFabButton:
+                id: button_add_exercise
+                pos_hint: {"center_x": .5, "center_y": .5}
+                fab_state: "expand"
+                on_press: root.finish_workout()
+                MDExtendedFabButtonIcon:
+                    icon: "check-bold"
+                MDExtendedFabButtonText:
+                    text: "Finished"

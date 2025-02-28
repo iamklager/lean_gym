@@ -1,0 +1,33 @@
+<ExerciseItem>:
+    name: ''
+    MDListItemHeadlineText:
+        text: root.name
+
+
+<AddExerciseScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDStackLayout:
+        orientation: "tb-lr"
+
+        MDTextField:
+            id: exercise_search_text
+            mode: "outlined"
+            hint_text: "Search..."
+            on_text: root.filter_list(self.text)
+            MDTextFieldLeadingIcon:
+                icon: "magnify"
+
+        MDRecycleView:
+            id: exercise_list
+            viewclass: "ExerciseItem"
+            size_hint: 1, None
+            height: root.height - root.ids.exercise_search_text.height
+            do_scroll_x: False
+
+            MDRecycleGridLayout:
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 1

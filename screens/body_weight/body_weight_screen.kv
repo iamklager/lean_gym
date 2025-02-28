@@ -1,0 +1,24 @@
+<BodyWeightScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDBoxLayout:
+        orientation: "vertical"
+        MDLabel:
+            md_bg_color: app.theme_cls.secondaryColor
+            text: "Body weight chart goes here"
+            halign: "center"
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: weight_input.height
+            MDTextField:
+                id: weight_input
+                mode: "outlined"
+                text: root.weight
+            MDLabel:
+                text: "kg"
+                halign: "center"
+            MDFabButton:
+                icon: "plus-thick"
+                style: "standard"
+                on_press: root.track_weight()

@@ -1,0 +1,38 @@
+<WorkoutsListItem>:
+    id: root.id
+    MDListItemHeadlineText:
+        text: root.name
+    MDListItemSupportingText:
+        text: root.last_session
+
+
+
+<WorkoutsScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDStackLayout:
+        orientation: "tb-lr"
+
+        MDScrollView:
+            size_hint_y: None
+            adaptive_height: True
+            height: min(root.ids.workouts_list.height, root.height * .85)
+            do_scroll_x: False
+            MDList:
+                md_bg_color: app.theme_cls.primaryColor
+                id: workouts_list
+                padding: 0
+                spacing: 0
+                adaptive_height: True
+
+        MDFloatLayout:
+            size_hint_y: .15
+            MDExtendedFabButton:
+                id: button_add_workout
+                pos_hint: {"center_x": .5, "center_y": .5}
+                fab_state: "expand"
+                on_press: app.root.current = "editworkout"
+                MDExtendedFabButtonIcon:
+                    icon: "plus-thick"
+                MDExtendedFabButtonText:
+                    text: "Add Workout"

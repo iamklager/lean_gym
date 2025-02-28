@@ -1,0 +1,40 @@
+<ExerciseListItem>:
+    MDListItemHeadlineText:
+        text: root.name
+
+
+<EditWorkoutScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDStackLayout:
+        orientation: "tb-lr"
+
+        MDTextField:
+            id: workout_name
+            mode: "outlined"
+            MDTextFieldLeadingIcon:
+                icon: "pencil"
+
+        MDScrollView:
+            size_hint_y: None
+            adaptive_height: True
+            height: min(root.ids.exercise_list.height, root.height * .85)
+            do_scroll_x: False
+            MDList:
+                md_bg_color: app.theme_cls.primaryColor
+                id: exercise_list
+                padding: 0
+                spacing: 0
+                adaptive_height: True
+
+        MDFloatLayout:
+            size_hint_y: .15
+            MDExtendedFabButton:
+                id: save_workout
+                pos_hint: {"center_x": .5, "center_y": .5}
+                fab_state: "expand"
+                on_press: root.save_workout()
+                MDExtendedFabButtonIcon:
+                    icon: "content-save"
+                MDExtendedFabButtonText:
+                    text: "Save"

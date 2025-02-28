@@ -1,0 +1,121 @@
+<LastSetItem>:
+    md_bg_color: app.theme_cls.secondaryColor
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "40dp"
+    MDLabel:
+        md_bg_color: app.theme_cls.backgroundColor
+        text: root.intensity
+        halign: "center"
+        size_hint: (.15, 1)
+        pos_hint: {"center_x": .075, "center_y": .5}
+    MDLabel:
+        md_bg_color: app.theme_cls.backgroundColor
+        text: root.unit_intensity
+        halign: "center"
+        size_hint: (.15, 1)
+        pos_hint: {"center_x": .225, "center_y": .5}
+    MDLabel:
+        md_bg_color: app.theme_cls.backgroundColor
+        text: root.volume
+        halign: "center"
+        size_hint: (.15, 1)
+        pos_hint: {"center_x": .375, "center_y": .5}
+    MDLabel:
+        md_bg_color: app.theme_cls.backgroundColor
+        text: root.unit_volume
+        halign: "center"
+        size_hint: (.35, 1)
+        pos_hint: {"center_x": .625, "center_y": .5}
+    MDLabel:
+        md_bg_color: app.theme_cls.backgroundColor
+        size_hint: (.2, 1)
+        pos_hint: {"center_x": .9, "center_y": .5}
+
+
+<NewSetItem>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "60dp"
+    MDTextField:
+        id: new_intensity
+        mode: "outlined"
+        size_hint: (.15, 1)
+        pos_hint: {"center_x": .075, "center_y": .5}
+    MDLabel:
+        text: root.unit_intensity
+        halign: "center"
+        size_hint: (.15, 1)
+        pos_hint: {"center_x": .225, "center_y": .5}
+    MDTextField:
+        id: new_volume
+        mode: "outlined"
+        size_hint: (.15, 1)
+        pos_hint: {"center_x": .375, "center_y": .5}
+    MDLabel:
+        text: root.unit_volume
+        halign: "center"
+        size_hint: (.35, 1)
+        pos_hint: {"center_x": .625, "center_y": .5}
+    MDFabButton:
+        icon: "plus-thick"
+        style: "standard"
+        size_hint: (.2, 1)
+        pos_hint: {"center_x": .9, "center_y": .5}
+        on_press: root.track_set()
+
+
+<CurrentExerciseScreen>:
+    md_bg_color: app.theme_cls.backgroundColor
+
+    MDStackLayout:
+        orientation: "tb-lr"
+
+        MDLabel:
+            id: label_last_sets
+            text: "Last sets:"
+            halign: "center"
+            size_hint: (1, .075)
+
+        MDScrollView:
+            size_hint_y: None
+            adaptive_height: True
+            height: root.height * .4 - root.ids.label_last_sets.height
+            do_scroll_x: False
+            MDList:
+                md_bg_color: app.theme_cls.primaryColor
+                id: last_set_list
+                padding: 1
+                spacing: 1
+                adaptive_height: True
+
+        MDLabel:
+            id: label_current_sets
+            text: "Current sets:"
+            halign: "center"
+            size_hint: (1, .075)
+
+        MDScrollView:
+            size_hint_y: None
+            adaptive_height: True
+            height: root.height * .6 - root.ids.label_current_sets.height - root.ids.new_set_item.height - root.ids.button_finish_exercise.height - 1
+            do_scroll_x: False
+            MDList:
+                md_bg_color: app.theme_cls.primaryColor
+                id: current_set_list
+
+        NewSetItem:
+            id: new_set_item
+
+        MDFloatLayout:
+            size_hint_y: None
+            height: root.ids.button_finish_exercise.height
+            MDExtendedFabButton:
+                id: button_finish_exercise
+                fab_state: "expand"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_press: root.finish_exercise()
+                MDExtendedFabButtonIcon:
+                    icon: "check-bold"
+                MDExtendedFabButtonText:
+                    text: "Finish"
