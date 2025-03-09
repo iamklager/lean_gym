@@ -3,11 +3,13 @@
 
     MDBoxLayout:
         orientation: "vertical"
-        MDLabel:
-            md_bg_color: app.theme_cls.secondaryColor
-            text: "Body weight chart goes here"
-            halign: "center"
         MDBoxLayout:
+            id: weight_history
+            size_hint_y: None
+            height: root.height - root.ids.weigt_tracking.height
+
+        MDBoxLayout:
+            id: weigt_tracking
             orientation: "horizontal"
             size_hint_y: None
             height: weight_input.height

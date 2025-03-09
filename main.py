@@ -7,8 +7,8 @@ from kivy.base import EventLoop
 from screens import *
 
 
-# from kivy.core.window import Window
-# Window.size = (400, 780)
+from kivy.core.window import Window
+Window.size = (400, 780)
 
 
 class MyScreenManager(MDScreenManager):
@@ -18,14 +18,6 @@ class MyScreenManager(MDScreenManager):
 class MyApp(MDApp):
     current_workout:  str
     current_exercise: str
-    back_btn_dic = {
-        "workouts": "workouts",
-        "workout": "workouts",
-        "currentworkout": "workout",
-        "editworkout": "",
-        "": "",
-        "": ""
-    }
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

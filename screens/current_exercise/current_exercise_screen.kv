@@ -64,6 +64,23 @@
         pos_hint: {"center_x": .9, "center_y": .5}
         on_press: root.track_set()
 
+<HistoryChoice>:
+    MDSegmentedButtonItem:
+        id: choice_last_sets
+        on_press: root.select_last_sets()
+        MDSegmentButtonIcon:
+            icon: "history"
+        MDSegmentButtonLabel:
+            text: "Last sets"
+
+    MDSegmentedButtonItem:
+        id: choice_history
+        on_press: root.select_history()
+        MDSegmentButtonIcon:
+            icon: "chart-line"
+        MDSegmentButtonLabel:
+            text: "History"
+
 
 <CurrentExerciseScreen>:
     md_bg_color: app.theme_cls.backgroundColor
@@ -71,16 +88,14 @@
     MDStackLayout:
         orientation: "tb-lr"
 
-        MDLabel:
-            id: label_last_sets
-            text: "Last sets:"
-            halign: "center"
-            size_hint: (1, .075)
+        HistoryChoice:
+            id: exercise_history
 
         MDScrollView:
+            id: scroll_last_sets
             size_hint_y: None
             adaptive_height: True
-            height: root.height * .4 - root.ids.label_last_sets.height
+            height: root.height * .4 - root.ids.exercise_history.height
             do_scroll_x: False
             MDList:
                 md_bg_color: app.theme_cls.primaryColor
@@ -88,6 +103,12 @@
                 padding: 1
                 spacing: 1
                 adaptive_height: True
+
+        BoxLayout:
+            id: box_history
+            size_hint_y: None
+            height: 0
+
 
         MDLabel:
             id: label_current_sets

@@ -1,13 +1,15 @@
 from utils import (
     read_last_sets, read_new_sets, read_last_exercise_number, read_exercise_units,
-    write_new_set, write_last_session
+    write_new_set, write_last_session, read_exercise_history, plot_exercise_history
 )
 
 from kivy.properties import StringProperty, NumericProperty
+from kivy_garden.matplotlib import FigureCanvasKivyAgg
 from kivymd.app import MDApp
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.screen import MDScreen
-
+from kivymd.uix.segmentedbutton import MDSegmentedButton
+from kivymd.uix.widget import MDWidget
 
 from kivy.lang.builder import Builder
 Builder.load_file("screens/current_exercise/current_exercise_screen.kv")
@@ -68,6 +70,19 @@ class NewSetItem(MDFloatLayout):
         return 0
 
 
+class HistoryChoice(MDSegmentedButton):
+    def select_last_sets(self):
+        scr = MDApp.get_running_app().root.get_screen("currentexercise")
+        scr.ids.box_history.height = 0
+        scr.ids.box_history.clear_widgets()
+        scr.ids.scroll_last_sets.height = scr.height * .4 - scr.ids.exercise_history.height
+
+    def select_history(self):
+        scr = MDApp.get_running_app().root.get_screen("currentexercise")
+        scr.ids.scroll_last_sets.height = 0
+        scr.ids.box_history.height = scr.height * .4 - scr.ids.exercise_history.height
+        scr.ids.box_history.clear_widgets()
+        scr.ids.box_history.add_widget(FigureCanvasKivyAgg(scr.chart))
 
 
 class CurrentExerciseScreen(MDScreen):
@@ -84,7 +99,15 @@ class CurrentExerciseScreen(MDScreen):
         units = read_exercise_units(app.current_exercise, app.conn_str)
         self.ids.new_set_item.unit_intensity = units[0]
         self.ids.new_set_item.unit_volume    = units[1]
-
+        exercise_history = read_exercise_history(app.current_exercise, app.conn_str)
+        self.chart = plot_exercise_history(
+            exercise_history,
+            units[0],
+            app.theme_cls.primaryColor,
+            app.theme_cls.backgroundColor
+        )
+        self.ids.box_history.clear_widgets()
+        self.ids.box_history.add_widget(FigureCanvasKivyAgg(self.chart))
 
     def populate_last_sets(self):
         self.ids.last_set_list.clear_widgets()
