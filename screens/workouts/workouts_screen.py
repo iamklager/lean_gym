@@ -89,10 +89,10 @@ class WorkoutsScreen(MDScreen):
         self.conn_str = MDApp.get_running_app().conn_str
         self.workouts = read_workouts(self.conn_str)
         self.workout2edit = ''
-        Clock.schedule_once(self.after_init)
 
     def after_init(self, dt):
         app = MDApp.get_running_app()
+        app.root.came_from_settings = False
         app.root.workout_tab_screen = "workouts"
 
     def on_pre_leave(self, *args):
@@ -106,8 +106,10 @@ class WorkoutsScreen(MDScreen):
 
     def on_enter(self, *args):
         app = MDApp.get_running_app()
-        print(app.root is None)
-        #app.root.came_from_settings = False
+        if app.root:
+            app.root.came_from_settings = False
+        else:
+            Clock.schedule_once(self.after_init)
         return super().on_enter(*args)
 
     def update_workouts(self):

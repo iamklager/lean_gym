@@ -1,4 +1,4 @@
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, BooleanProperty
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.transition import MDSlideTransition
 from kivymd.uix.navigationbar import MDNavigationBar, MDNavigationItem
@@ -15,7 +15,11 @@ class BaseMDNavigationItem(MDNavigationItem):
 
 class SManager(MDBoxLayout):
     workout_tab_screen = StringProperty("workouts")
-    came_from_settings = False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.came_from_settings = False
+
 
     def on_switch_tabs(
         self,
@@ -24,8 +28,6 @@ class SManager(MDBoxLayout):
         item_icon: str,
         item_text: str,
     ):
-        print("Start tab logic")
-        print(self.came_from_settings)
         if item_text == "Workout":
             if self.came_from_settings == True:
                 self.ids.screen_manager.transition = MDSlideTransition(direction="right")
@@ -35,5 +37,3 @@ class SManager(MDBoxLayout):
             if self.came_from_settings == False:
                 self.ids.screen_manager.transition = MDSlideTransition(direction="left")
                 self.ids.screen_manager.current = "settings"
-        print("End tab logic")
-        print(self.came_from_settings)

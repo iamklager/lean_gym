@@ -9,3 +9,6 @@ class SettingsScreen(MDScreen):
         app = MDApp.get_running_app()
         app.root.came_from_settings = True
         return super().on_enter(*args)
+
+    def back_btn(self):
+        ...
