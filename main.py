@@ -3,6 +3,7 @@ from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSlideTransition
 from kivy.base import EventLoop
+from kivy.core.audio import SoundLoader
 
 from screens import *
 
@@ -25,6 +26,7 @@ class MyApp(MDApp):
         self.current_exercise = ''
         self.previous_screen  = '' # To back to the right screen after adding exercises to workouts (either during a workout or in general)
         self.conn_str = os.path.abspath("user.db")
+        #self.pause_over_sound = SoundLoader.load(os.path.abspath("alarm_sound.wav"))
 
     def build(self):
         self.theme_cls.theme_style = "Light"

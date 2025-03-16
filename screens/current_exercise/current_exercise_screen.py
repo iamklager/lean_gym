@@ -10,6 +10,8 @@ from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.segmentedbutton import MDSegmentedButton
 from kivymd.uix.widget import MDWidget
+from kivymd.uix.button import MDButton, MDButtonText
+from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogButtonContainer
 
 from kivy.lang.builder import Builder
 Builder.load_file("screens/current_exercise/current_exercise_screen.kv")
@@ -31,10 +33,10 @@ class NewSetItem(MDFloatLayout):
         volume    = self.ids.new_volume.text
         # Breakout conditions: Wrong input types
         if (intensity == '') or (volume == ''):
-            print("New intensiy or volumne is empty.")
+            self.show_error_message("New intensity or volumne is empty.")
             return 1
         elif (not intensity.replace('.','',1).lstrip("-").isdigit()) or (not volume.replace('.','',1).lstrip("-").isdigit()):
-            print("New intensiy or volumne is not a number.")
+            self.show_error_message("New intensity or volumne is not a number.")
             return 2
         # Writing the new set to the database
         intensity = float(intensity)
@@ -68,6 +70,21 @@ class NewSetItem(MDFloatLayout):
         app.root.current = "pause"
         # Unused return value
         return 0
+
+    def show_error_message(self, message):
+        self.error_message = MDDialog(
+            MDDialogHeadlineText(text=message),
+            MDDialogButtonContainer(
+                MDWidget(),
+                MDButton(
+                    MDButtonText(text="Ok"),
+                    style="text",
+                    on_release=lambda _: self.error_message.dismiss()
+                ),
+                spacing="8dp"
+            )
+        )
+        self.error_message.open()
 
 
 class HistoryChoice(MDSegmentedButton):

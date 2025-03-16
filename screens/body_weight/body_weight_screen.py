@@ -4,6 +4,9 @@ from kivy_garden.matplotlib import FigureCanvasKivyAgg
 from kivy.properties import StringProperty
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.widget import MDWidget
+from kivymd.uix.button import MDButton, MDButtonText
+from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogButtonContainer
 
 
 from kivy.lang.builder import Builder
@@ -21,14 +24,14 @@ class BodyWeightScreen(MDScreen):
         # Check input type
         weight = self.ids.weight_input.text
         if weight == '':
-            print("Weight is empty.")
+            self.show_error_message("Weight is empty.")
             return 1
         elif not weight.replace('.','',1).lstrip("-").isdigit():
-            print("Weight is not a number.")
+            self.show_error_message("Weight is not a number.")
             return 2
         weight = float(weight)
         if weight < 0:
-            print("Humans cannot have a negative weight.")
+            self.show_error_message("Humans cannot have a negative weight.")
             return 3
         # Append weight or overwrite existing weight if already exists.
         app = MDApp.get_running_app()
@@ -41,6 +44,21 @@ class BodyWeightScreen(MDScreen):
         app.root.current = "workout"
         # Success check
         return 0
+
+    def show_error_message(self, message):
+        self.error_message = MDDialog(
+            MDDialogHeadlineText(text=message),
+            MDDialogButtonContainer(
+                MDWidget(),
+                MDButton(
+                    MDButtonText(text="Ok"),
+                    style="text",
+                    on_release=lambda _: self.error_message.dismiss()
+                ),
+                spacing="8dp"
+            )
+        )
+        self.error_message.open()
 
     def plot_chart(self):
         app = MDApp.get_running_app()
