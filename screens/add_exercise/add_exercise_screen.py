@@ -16,10 +16,10 @@ class ExerciseItem(MDListItem):
     def on_press(self):
         app = MDApp.get_running_app()
         if app.previous_screen == "workout":
-            app.root.get_screen("workout").workout.append(self.name)
+            app.root.ids.screen_manager.get_screen("workout").workout.append(self.name)
         elif app.previous_screen == "editworkout":
-            app.root.get_screen("editworkout").workout.append(self.name)
-        app.root.current = app.previous_screen
+            app.root.ids.screen_manager.get_screen("editworkout").workout.append(self.name)
+        app.root.ids.screen_manager.current = app.previous_screen
 
 
 class AddExerciseScreen(MDScreen):
@@ -30,6 +30,16 @@ class AddExerciseScreen(MDScreen):
 
     def on_pre_enter(self):
         self.populate_list()
+
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        app.root.came_from_settings = False
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "addexercise"
+        return super().on_pre_leave(*args)
 
     def populate_list(self):
         self.ids.exercise_list.data = [
@@ -46,4 +56,4 @@ class AddExerciseScreen(MDScreen):
 
     def back_btn(self):
         app = MDApp.get_running_app()
-        app.root.current = app.previous_screen
+        app.root.ids.screen_manager.current = app.previous_screen

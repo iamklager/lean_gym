@@ -21,14 +21,14 @@ class WorkoutListItem(MDListItem):
     def on_press(self):
         app = MDApp.get_running_app()
         app.current_exercise = self.name
-        app.root.current = "currentexercise"
+        app.root.ids.screen_manager.current = "currentexercise"
 
 
 class AdditionalExercise(MDListItem):
     def on_press(self):
         app = MDApp.get_running_app()
         app.previous_screen = "workout"
-        app.root.current = "addexercise"
+        app.root.ids.screen_manager.current = "addexercise"
 
 
 class WorkoutScreen(MDScreen):
@@ -42,8 +42,17 @@ class WorkoutScreen(MDScreen):
             self.workout = read_workout(app.current_workout, app.conn_str)
         else:
             app.previous_screen = ''
-
         self.update_workout()
+
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        app.root.came_from_settings = False
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "workout"
+        return super().on_pre_leave(*args)
 
     def update_workout(self):
         self.ids.workout_list.clear_widgets()
@@ -65,8 +74,8 @@ class WorkoutScreen(MDScreen):
         app = MDApp.get_running_app()
         app.current_exercise = ''
         app.current_workout  = ''
-        app.root.current = "workouts"
+        app.root.ids.screen_manager.current = "workouts"
 
     def back_btn(self):
         app = MDApp.get_running_app()
-        app.root.current = "workouts"
+        app.root.ids.screen_manager.current = "workouts"

@@ -20,6 +20,16 @@ class BodyWeightScreen(MDScreen):
         self.plot_chart()
         return super().on_pre_enter(*args)
 
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        app.root.came_from_settings = False
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "bodyweight"
+        return super().on_pre_leave(*args)
+
     def track_weight(self):
         # Check input type
         weight = self.ids.weight_input.text
@@ -41,7 +51,7 @@ class BodyWeightScreen(MDScreen):
         # Update chart
         self.plot_chart()
         # Go back to workout screen
-        app.root.current = "workout"
+        app.root.ids.screen_manager.current = "workout"
         # Success check
         return 0
 
@@ -75,4 +85,4 @@ class BodyWeightScreen(MDScreen):
 
     def back_btn(self):
         app = MDApp.get_running_app()
-        app.root.current = "workout"
+        app.root.ids.screen_manager.current = "workout"

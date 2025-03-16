@@ -1,0 +1,29 @@
+#:import MDSlideTransition kivymd.uix.transition.MDSlideTransition
+
+
+<BaseMDNavigationItem>
+    MDNavigationItemIcon:
+        icon: root.icon
+    MDNavigationItemLabel:
+        text: root.text
+
+
+<SManager>:
+    orientation: "vertical"
+    md_bg_color: self.theme_cls.backgroundColor
+
+    MDScreenManager:
+        id: screen_manager
+        transition: MDSlideTransition(duration=0)
+
+    MDNavigationBar:
+        on_switch_tabs: root.on_switch_tabs(*args)
+
+        BaseMDNavigationItem:
+            icon: "dumbbell"
+            text: "Workout"
+            active: True
+
+        BaseMDNavigationItem:
+            icon: "cog"
+            text: "Settings"

@@ -56,7 +56,7 @@ class NewSetItem(MDFloatLayout):
         # Updating the UI
         last_sets = read_last_sets(app.current_exercise, app.conn_str)
         last_sets = last_sets[len(last_sets) - 1]
-        app.root.get_screen("currentexercise").ids.current_set_list.add_widget(
+        app.root.ids.screen_manager.get_screen("currentexercise").ids.current_set_list.add_widget(
             LastSetItem(
                 intensity      = str(last_sets[0]),
                 unit_intensity = last_sets[1],
@@ -67,7 +67,7 @@ class NewSetItem(MDFloatLayout):
         self.ids.new_intensity.text = ''
         self.ids.new_volume.text    = ''
         # Switching to pause timer
-        app.root.current = "pause"
+        app.root.ids.screen_manager.current = "pause"
         # Unused return value
         return 0
 
@@ -89,13 +89,13 @@ class NewSetItem(MDFloatLayout):
 
 class HistoryChoice(MDSegmentedButton):
     def select_last_sets(self):
-        scr = MDApp.get_running_app().root.get_screen("currentexercise")
+        scr = MDApp.get_running_app().root.ids.screen_manager.get_screen("currentexercise")
         scr.ids.box_history.height = 0
         scr.ids.box_history.clear_widgets()
         scr.ids.scroll_last_sets.height = scr.height * .4 - scr.ids.exercise_history.height
 
     def select_history(self):
-        scr = MDApp.get_running_app().root.get_screen("currentexercise")
+        scr = MDApp.get_running_app().root.ids.screen_manager.get_screen("currentexercise")
         scr.ids.scroll_last_sets.height = 0
         scr.ids.box_history.height = scr.height * .4 - scr.ids.exercise_history.height
         scr.ids.box_history.clear_widgets()
@@ -126,6 +126,16 @@ class CurrentExerciseScreen(MDScreen):
         self.ids.box_history.clear_widgets()
         self.ids.box_history.add_widget(FigureCanvasKivyAgg(self.chart))
 
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        app.root.came_from_settings = False
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "currentexercise"
+        return super().on_pre_leave(*args)
+
     def populate_last_sets(self):
         self.ids.last_set_list.clear_widgets()
         for last_set in self.last_sets:
@@ -153,8 +163,8 @@ class CurrentExerciseScreen(MDScreen):
     def finish_exercise(self):
         app = MDApp.get_running_app()
         app.current_exercise = ''
-        app.root.current = "workout"
+        app.root.ids.screen_manager.current = "workout"
 
     def back_btn(self):
         app = MDApp.get_running_app()
-        app.root.current = "workout"
+        app.root.ids.screen_manager.current = "workout"

@@ -66,20 +66,20 @@ class WorkoutsListItem(MDListItem):
     def start_workout(self):
         app = MDApp.get_running_app()
         app.current_workout = self.name
-        app.root.get_screen("workout").workout = app.current_workout
+        app.root.ids.screen_manager.get_screen("workout").workout = app.current_workout
         app.previous_screen = "workouts"
-        app.root.current = "workout"
+        app.root.ids.screen_manager.current = "workout"
 
     def edit_workout(self):
         app = MDApp.get_running_app()
-        app.root.get_screen("workouts").workout2edit = self.name
-        app.root.current = "editworkout"
+        app.root.ids.screen_manager.get_screen("workouts").workout2edit = self.name
+        app.root.ids.screen_manager.current = "editworkout"
 
     def delete_workout(self):
         app = MDApp.get_running_app()
         delete_workout(self.name, app.conn_str)
-        app.root.get_screen("workouts").workouts = read_workouts(app.conn_str)
-        app.root.get_screen("workouts").update_workouts()
+        app.root.ids.screen_manager.get_screen("workouts").workouts = read_workouts(app.conn_str)
+        app.root.ids.screen_manager.get_screen("workouts").update_workouts()
 
 
 
@@ -89,10 +89,26 @@ class WorkoutsScreen(MDScreen):
         self.conn_str = MDApp.get_running_app().conn_str
         self.workouts = read_workouts(self.conn_str)
         self.workout2edit = ''
+        Clock.schedule_once(self.after_init)
+
+    def after_init(self, dt):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "workouts"
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "workouts"
+        return super().on_pre_leave(*args)
 
     def on_pre_enter(self, *args):
         self.workouts = read_workouts(self.conn_str)
         self.update_workouts()
+
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        print(app.root is None)
+        #app.root.came_from_settings = False
+        return super().on_enter(*args)
 
     def update_workouts(self):
         self.ids.workouts_list.clear_widgets()

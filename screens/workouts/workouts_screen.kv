@@ -31,7 +31,7 @@
                 id: button_add_workout
                 pos_hint: {"center_x": .5, "center_y": .5}
                 fab_state: "expand"
-                on_press: app.root.current = "editworkout"
+                on_press: app.root.ids.screen_manager.current = "editworkout"
                 MDExtendedFabButtonIcon:
                     icon: "plus-thick"
                 MDExtendedFabButtonText:

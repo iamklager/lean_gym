@@ -5,3 +5,4 @@ from .add_exercise.add_exercise_screen import AddExerciseScreen
 from .current_exercise.current_exercise_screen import CurrentExerciseScreen
 from .pause.pause_screen import PauseScreen
 from .body_weight.body_weight_screen import BodyWeightScreen
+from .settings.settings_screen import SettingsScreen

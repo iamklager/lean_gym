@@ -58,15 +58,15 @@ class ExerciseListItem(MDListItem):
     def menu_callback(self, option):
         self.menu.dismiss()
         app = MDApp.get_running_app()
-        app.root.get_screen("editworkout").workout.remove(self.name)
-        app.root.get_screen("editworkout").update_exercises()
+        app.root.ids.screen_manager.get_screen("editworkout").workout.remove(self.name)
+        app.root.ids.screen_manager.get_screen("editworkout").update_exercises()
 
 
 class AdditionalExercise(MDListItem):
     def on_press(self):
         app = MDApp.get_running_app()
         app.previous_screen = "editworkout"
-        app.root.current = "addexercise"
+        app.root.ids.screen_manager.current = "addexercise"
 
 
 class EditWorkoutScreen(MDScreen):
@@ -77,7 +77,7 @@ class EditWorkoutScreen(MDScreen):
 
     def on_pre_enter(self, *args):
         app = MDApp.get_running_app()
-        self.workout2edit = app.root.get_screen("workouts").workout2edit
+        self.workout2edit = app.root.ids.screen_manager.get_screen("workouts").workout2edit
         self.back_screen = "workouts"
         if self.workout2edit != '' and not self.is_editing:
             self.back_screen = self.workout2edit
@@ -86,6 +86,16 @@ class EditWorkoutScreen(MDScreen):
             self.ids.workout_name.text = self.workout2edit
             self.is_editing = True
         self.update_exercises()
+
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        app.root.came_from_settings = False
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "editworkout"
+        return super().on_pre_leave(*args)
 
     def update_exercises(self):
         self.ids.exercise_list.clear_widgets()
@@ -125,8 +135,8 @@ class EditWorkoutScreen(MDScreen):
         for old in rem_exercises:
             delete_exercise_from_workout(old, self.ids.workout_name.text, app.conn_str)
         self.is_editing = False
-        app.root.current = "workouts"
+        app.root.ids.screen_manager.current = "workouts"
 
     def back_btn(self):
         app = MDApp.get_running_app()
-        app.root.current = "workouts"
+        app.root.ids.screen_manager.current = "workouts"

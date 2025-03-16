@@ -25,11 +25,22 @@ class PauseScreen(MDScreen):
         #self.pause_over_sound = SoundLoader.load("alarm_sound.wav")
 
     def on_pre_enter(self, *args):
-        self.pause_time = 60 # Store this in a settings table later
-        self.pause_time_display = int_to_mmss(self.pause_time)
+        app = MDApp.get_running_app()
+        if app.root.came_from_settings == False:
+            self.pause_time = 60 # Store this in a settings table later
+            self.pause_time_display = int_to_mmss(self.pause_time)
 
-    def on_enter(self):
-        Clock.schedule_interval(self.update_timer, 1)
+    def on_enter(self, *args):
+        app = MDApp.get_running_app()
+        if app.root.came_from_settings == False:
+            Clock.schedule_interval(self.update_timer, 1)
+        app.root.came_from_settings = False
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        app = MDApp.get_running_app()
+        app.root.workout_tab_screen = "pause"
+        return super().on_pre_leave(*args)
 
     def update_timer(self, dt):
         self.pause_time -= 1
@@ -41,15 +52,15 @@ class PauseScreen(MDScreen):
             except NotImplementedError:
                 print("plyr Vibrator does not have a linux implementation.")
             app = MDApp.get_running_app()
-            app.root.current = "currentexercise"
+            app.root.ids.screen_manager.current = "currentexercise"
             Clock.unschedule(self.update_timer)
         return True
 
     def skip_pause(self):
         app = MDApp.get_running_app()
         Clock.unschedule(self.update_timer)
-        app.root.current = "currentexercise"
+        app.root.ids.screen_manager.current = "currentexercise"
 
     def back_btn(self):
         app = MDApp.get_running_app()
-        app.root.current = "currentexercise"
+        app.root.ids.screen_manager.current = "currentexercise"
