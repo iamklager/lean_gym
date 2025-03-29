@@ -7,10 +7,12 @@ from .db.read_last_exercise_number import read_last_exercise_number
 from .db.read_exercise_units import read_exercise_units
 from .db.read_weight_history import read_weight_history
 from .db.read_exercise_history import read_exercise_history
+from .db.read_settings import read_settings
 
 from .db.write_new_set import write_new_set
 from .db.write_last_session import write_last_session
 from .db.write_bodyweight import write_bodyweight
+from .db.write_setting import write_setting
 from .db.add_workout import add_workout
 from .db.rename_workout import rename_workout
 from .db.add_exercise_to_workout import add_exercise_to_workout

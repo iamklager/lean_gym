@@ -1,4 +1,160 @@
-<SettingsScreen>:
+<PauseTimeSetting>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "36dp"
     MDLabel:
-        text: "Settings go here"
-        halign: "center"
+        id: label_pause_time
+        pos_hint: {"center_y": .5}
+        size_hint_x: None
+        width: "120dp"
+        text: "Pause Time:"
+        halign: "left"
+    MDFloatLayout:
+        size_hint_x: None
+        width: root.width - root.ids.label_pause_time.width
+        MDBoxLayout:
+            orientation: "horizontal"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint_x: None
+            width: root.ids.time_minutes.width + root.ids.time_separator.width + root.ids.time_seconds.width
+            MDTextField:
+                id: time_minutes
+                pos_hint: {"center_y": .5}
+                size_hint_x: None
+                width: "56dp"
+                mode: "outlined"
+                text: root.minutes
+                halign: "center"
+            MDLabel:
+                id: time_separator
+                pos_hint: {"center_y": .5}
+                size_hint_x: None
+                width: "12dp"
+                text: ':'
+                halign: "center"
+            MDTextField:
+                id: time_seconds
+                pos_hint: {"center_y": .5}
+                size_hint_x: None
+                width: "56dp"
+                mode: "outlined"
+                text: root.seconds
+                halign: "center"
+
+
+<PauseVibration>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "36dp"
+    MDLabel:
+        id: label_alarm
+        pos_hint: {"center_y": .5}
+        size_hint_x: None
+        width: "120dp"
+        text: "Pause Vibration:"
+        halign: "left"
+    MDFloatLayout:
+        size_hint_x: None
+        width: root.width - root.ids.label_alarm.width
+        MDCheckbox:
+            id: alarm_vibration
+            pos_hint: {"center_x": .5, "center_y": .5}
+            active: root.is_on
+
+
+<PauseSound>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "36dp"
+    MDLabel:
+        id: label_sound
+        pos_hint: {"center_y": .5}
+        size_hint_x: None
+        width: "120dp"
+        text: "Pause Sound:"
+        halign: "left"
+    MDFloatLayout:
+        size_hint_x: None
+        width: root.width - root.ids.label_sound.width
+        MDCheckbox:
+            id: alarm_sound
+            pos_hint: {"center_x": .5, "center_y": .5}
+            active: root.is_on
+
+
+<SettingsScreen>:
+    MDStackLayout:
+        padding: "16dp"
+        spacing: "16dp"
+
+        MDDivider:
+
+        PauseTimeSetting:
+            id: pause_time
+            pos_hint: {"center_x": .5}
+
+        MDDivider:
+
+        PauseVibration:
+            id: pause_vibration
+
+        MDDivider:
+
+        PauseSound:
+            id: pause_sound
+
+        MDDivider:
+
+        MDBoxLayout:
+            id: box_export
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "36dp"
+            MDLabel:
+                id: label_export
+                pos_hint: {"center_y": .5}
+                size_hint_x: None
+                width: "120dp"
+                text: "Export data:"
+                halign: "left"
+            MDFloatLayout:
+                size_hint_x: None
+                width: root.ids.box_export.width - root.ids.label_export.width
+                MDFabButton:
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    icon: "database-export"
+                    style: "small"
+
+        MDDivider:
+
+        MDBoxLayout:
+            id: box_import
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "36dp"
+            MDLabel:
+                id: label_import
+                pos_hint: {"center_y": .5}
+                size_hint_x: None
+                width: "120dp"
+                text: "Import data:"
+                halign: "left"
+            MDFloatLayout:
+                size_hint_x: None
+                width: root.ids.box_import.width - root.ids.label_import.width
+                MDFabButton:
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    icon: "database-import"
+                    style: "small"
+
+        MDDivider:
+
+        MDFloatLayout:
+            size_hint_y: None
+            height: root.ids.button_save_settings.height
+            MDFabButton:
+                id: button_save_settings
+                pos_hint: {"center_x": .5, "center_y": .5}
+                icon: "content-save"
+                style: "standard"
+                on_press: root.save_settings()

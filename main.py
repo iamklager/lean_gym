@@ -8,7 +8,7 @@ from screens import *
 
 
 from kivy.core.window import Window
-Window.size = (400, 780)
+Window.size = (300, 680)
 
 
 class MyApp(MDApp):
