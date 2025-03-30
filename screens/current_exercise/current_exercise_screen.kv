@@ -68,6 +68,8 @@
     MDSegmentedButtonItem:
         id: choice_last_sets
         on_press: root.select_last_sets()
+        size_hint_x: None
+        width: 0.5 * root.width
         MDSegmentButtonIcon:
             icon: "history"
         MDSegmentButtonLabel:
@@ -76,6 +78,8 @@
     MDSegmentedButtonItem:
         id: choice_history
         on_press: root.select_history()
+        size_hint_x: None
+        width: 0.5 * root.width
         MDSegmentButtonIcon:
             icon: "chart-line"
         MDSegmentButtonLabel:
