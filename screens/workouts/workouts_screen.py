@@ -6,6 +6,7 @@ from kivymd.uix.list import MDListItem
 from kivymd.app import MDApp
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.divider import MDDivider
 
 from kivy.lang.builder import Builder
 Builder.load_file("screens/workouts/workouts_screen.kv")
@@ -126,6 +127,7 @@ class WorkoutsScreen(MDScreen):
             )
             workout_item.bind(on_release=self.item_clicked)
             self.ids.workouts_list.add_widget(workout_item)
+            self.ids.workouts_list.add_widget(MDDivider())
 
     def item_clicked(self, instance):
         instance.start_workout()

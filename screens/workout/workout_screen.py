@@ -4,7 +4,7 @@ from kivy.properties import StringProperty
 from kivymd.app import MDApp
 from kivymd.uix.list import MDListItem
 from kivymd.uix.screen import MDScreen
-
+from kivymd.uix.divider import MDDivider
 
 from kivy.lang.builder import Builder
 Builder.load_file("screens/workout/workout_screen.kv")
@@ -57,11 +57,14 @@ class WorkoutScreen(MDScreen):
     def update_workout(self):
         self.ids.workout_list.clear_widgets()
         self.ids.workout_list.add_widget(BodyWeightItem())
+        self.ids.workout_list.add_widget(MDDivider())
         for exercise in self.workout:
             self.add_exercise(exercise)
+            self.ids.workout_list.add_widget(MDDivider())
         self.ids.workout_list.add_widget(
             AdditionalExercise()
         )
+        self.ids.workout_list.add_widget(MDDivider())
 
     def add_exercise(self, name):
         id = name.lower()

@@ -1,6 +1,6 @@
 # Backlog
 
-- Improve overall design (e.g., using dividers in lists instead of background a colored background).
+- Improve overall design.
 - Add back screen switching animations in a way that makes sense.
 - Add history tab?: Shows the history for each exercise, as well as body weight
 - Enable import and export of database.
