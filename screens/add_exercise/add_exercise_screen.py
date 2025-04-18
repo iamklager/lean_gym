@@ -47,7 +47,6 @@ class AddExerciseScreen(MDScreen):
         ]
 
     def filter_list(self, search_text):
-        print(search_text)
         self.filtered_exercises = [
             exercise for exercise in self.all_exercises
             if search_text.lower() in exercise.lower()

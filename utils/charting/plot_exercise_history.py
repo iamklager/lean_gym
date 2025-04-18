@@ -2,6 +2,7 @@ import datetime
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+from matplotlib.dates import AutoDateLocator, AutoDateFormatter
 
 
 def plot_exercise_history(history, unit_intensity, point_col="steelblue", bg_col="white"):
@@ -11,17 +12,21 @@ def plot_exercise_history(history, unit_intensity, point_col="steelblue", bg_col
     intensity = [obs[1] for obs in history]
     n         = [obs[2] * 20 for obs in history]
 
-    fig = plt.figure(figsize=(3.5, 2.5))
+    fig = plt.figure(figsize=(3.5, 2.5), constrained_layout=True)
 
     fig.patch.set_facecolor(bg_col)
-    plt.gca().set_facecolor(bg_col)
+    ax = plt.gca()
+    ax.set_facecolor(bg_col)
 
-    plt.scatter(date, intensity, s=n, c=point_col, zorder=3)
+    ax.scatter(date, intensity, s=n, c=point_col, zorder=3)
 
-    plt.ylabel(unit_intensity)
-    # plt.gca().yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, pos: f"{x} {unit_intensity}"))
+    locator = AutoDateLocator()
+    formatter = AutoDateFormatter(locator)
+    ax.xaxis.set_major_locator(locator)
+    ax.xaxis.set_major_formatter(formatter)
+
+    ax.set_ylabel(unit_intensity)
     fig.autofmt_xdate()
-    fig.tight_layout()
-    plt.grid(True, zorder=0)
+    ax.grid(True, zorder=0)
 
-    return plt.gcf()
+    return fig

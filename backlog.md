@@ -1,6 +1,6 @@
 # Backlog
 
-- Improve overall design.
+- Improve overall design (e.g. current and last set tables).
 - Add back screen switching animations in a way that makes sense.
 - Add history tab?: Shows the history for each exercise, as well as body weight
 - Enable import and export of database.

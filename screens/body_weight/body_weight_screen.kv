@@ -6,7 +6,11 @@
         MDBoxLayout:
             id: weight_history
             size_hint_y: None
-            height: root.height - root.ids.weigt_tracking.height
+            height: root.width# - root.ids.weigt_tracking.height
+            padding: dp(10)
+
+        Widget:
+            size_hint_y: 1
 
         MDBoxLayout:
             id: weigt_tracking
