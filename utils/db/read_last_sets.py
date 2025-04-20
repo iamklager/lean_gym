@@ -18,9 +18,15 @@ def read_last_sets(exercise, conn_str):
                 LIMIT 1
             )
             SELECT
-               	h.Intensity,
+               	CASE
+                    WHEN round(h.Intensity, 2) = CAST(h.Intensity AS INTEGER) THEN CAST(h.Intensity AS INTEGER)
+                    ELSE round(h.Intensity, 2)
+                END AS Intensity,
                	e.UnitIntensity,
-               	h.Volume,
+               	CASE
+                    WHEN round(h.Volume, 2) = CAST(h.Volume AS INTEGER) THEN CAST(h.Volume AS INTEGER)
+                    ELSE round(h.Volume, 2)
+                END AS Volume,
                	e.UnitVolume
             FROM workout_history h
             INNER JOIN temp t

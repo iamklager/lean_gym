@@ -6,7 +6,6 @@ from matplotlib.dates import AutoDateLocator, AutoDateFormatter
 
 
 def plot_exercise_history(history, unit_intensity, point_col="steelblue", bg_col="white"):
-
     matplotlib.use('Agg')  # Set backend to prevent segfault
     date      = [datetime.datetime.strptime(obs[0], "%Y-%m-%d") for obs in history]
     intensity = [obs[1] for obs in history]
@@ -18,7 +17,7 @@ def plot_exercise_history(history, unit_intensity, point_col="steelblue", bg_col
     ax = plt.gca()
     ax.set_facecolor(bg_col)
 
-    ax.scatter(date, intensity, s=n, c=point_col, zorder=3)
+    ax.scatter(date, intensity, s=n, c=[point_col], zorder=3)
 
     locator = AutoDateLocator()
     formatter = AutoDateFormatter(locator)

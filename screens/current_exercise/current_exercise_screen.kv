@@ -1,40 +1,57 @@
 <LastSetItem>:
-    md_bg_color: app.theme_cls.secondaryColor
-    orientation: "horizontal"
+    orientation: "vertical"
     size_hint_y: None
-    height: "40dp"
-    MDLabel:
-        md_bg_color: app.theme_cls.backgroundColor
-        text: root.intensity
-        halign: "center"
-        size_hint: (.15, 1)
-        pos_hint: {"center_x": .075, "center_y": .5}
-    MDLabel:
-        md_bg_color: app.theme_cls.backgroundColor
-        text: root.unit_intensity
-        halign: "center"
-        size_hint: (.15, 1)
-        pos_hint: {"center_x": .225, "center_y": .5}
-    MDLabel:
-        md_bg_color: app.theme_cls.backgroundColor
-        text: root.volume
-        halign: "center"
-        size_hint: (.15, 1)
-        pos_hint: {"center_x": .375, "center_y": .5}
-    MDLabel:
-        md_bg_color: app.theme_cls.backgroundColor
-        text: root.unit_volume
-        halign: "center"
-        size_hint: (.35, 1)
-        pos_hint: {"center_x": .625, "center_y": .5}
-    MDLabel:
-        md_bg_color: app.theme_cls.backgroundColor
-        size_hint: (.2, 1)
-        pos_hint: {"center_x": .9, "center_y": .5}
+    height: self.minimum_height
+    MDDivider:
+        orientation: "horizontal"
+    MDBoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: "40dp"
+        MDLabel:
+            text: root.intensity
+            halign: "center"
+            size_hint: (.15, 1)
+            font_style: "Label"
+            role: "large"
+        MDDivider:
+            orientation: "vertical"
+        MDLabel:
+            text: root.unit_intensity
+            halign: "center"
+            size_hint: (.15, 1)
+            font_style: "Label"
+            role: "large"
+            theme_text_color: "Custom"
+            text_color: (.3, .3, .3, 1)
+        MDDivider:
+            orientation: "vertical"
+        MDLabel:
+            text: root.volume
+            halign: "center"
+            size_hint: (.15, 1)
+            font_style: "Label"
+            role: "large"
+        MDDivider:
+            orientation: "vertical"
+        MDLabel:
+            text: root.unit_volume
+            halign: "center"
+            size_hint: (.35, 1)
+            font_style: "Label"
+            role: "large"
+            theme_text_color: "Custom"
+            text_color: (.3, .3, .3, 1)
+        MDDivider:
+            orientation: "vertical"
+        MDLabel:
+            size_hint: (.2, 1)
+            font_style: "Label"
+            role: "large"
 
 
 <NewSetItem>:
-    orientation: "horizontal"
+    orientation: "vertical"
     size_hint_y: None
     height: "60dp"
     MDTextField:
@@ -74,6 +91,7 @@
             icon: "history"
         MDSegmentButtonLabel:
             text: "Last sets"
+            bold: True
 
     MDSegmentedButtonItem:
         id: choice_history
@@ -84,11 +102,10 @@
             icon: "chart-line"
         MDSegmentButtonLabel:
             text: "History"
+            bold: True
 
 
 <CurrentExerciseScreen>:
-    md_bg_color: app.theme_cls.backgroundColor
-
     MDStackLayout:
         orientation: "tb-lr"
 
@@ -102,7 +119,6 @@
             height: root.height * .4 - root.ids.exercise_history.height
             do_scroll_x: False
             MDList:
-                md_bg_color: app.theme_cls.primaryColor
                 id: last_set_list
                 padding: 1
                 spacing: 1
@@ -120,6 +136,9 @@
             text: "Current sets:"
             halign: "center"
             size_hint: (1, .075)
+            font_style: "Title"
+            role: "medium"
+            bold: True
 
         MDScrollView:
             size_hint_y: None
@@ -127,7 +146,6 @@
             height: root.height * .6 - root.ids.label_current_sets.height - root.ids.new_set_item.height - root.ids.button_finish_exercise.height - 1
             do_scroll_x: False
             MDList:
-                md_bg_color: app.theme_cls.primaryColor
                 id: current_set_list
 
         NewSetItem:

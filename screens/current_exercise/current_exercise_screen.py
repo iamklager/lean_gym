@@ -12,12 +12,13 @@ from kivymd.uix.segmentedbutton import MDSegmentedButton
 from kivymd.uix.widget import MDWidget
 from kivymd.uix.button import MDButton, MDButtonText
 from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogButtonContainer
+from kivymd.uix.boxlayout import MDBoxLayout
 
 from kivy.lang.builder import Builder
 Builder.load_file("screens/current_exercise/current_exercise_screen.kv")
 
 
-class LastSetItem(MDFloatLayout):
+class LastSetItem(MDBoxLayout):
     intensity      = StringProperty('')
     unit_intensity = StringProperty('')
     volume         = StringProperty('')

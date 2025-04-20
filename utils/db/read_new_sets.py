@@ -9,7 +9,17 @@ def read_new_sets(workout, exercise, conn_str):
     cursor = conn.cursor()
     cursor.execute(
         """
-        SELECT h.Intensity, e.UnitIntensity, h.Volume, e.UnitVolume
+        SELECT
+            CASE
+                WHEN round(h.Intensity, 2) = CAST(h.Intensity AS INTEGER) THEN CAST(h.Intensity AS INTEGER)
+                ELSE round(h.Intensity, 2)
+            END AS Intensity,
+            e.UnitIntensity,
+            CASE
+                WHEN round(h.Volume, 2) = CAST(h.Volume AS INTEGER) THEN CAST(h.Volume AS INTEGER)
+                ELSE round(h.Volume, 2)
+            END AS Volume,
+            e.UnitVolume
         FROM workout_history h
         INNER JOIN exercises e
             ON h.Exercise = e.Exercise
