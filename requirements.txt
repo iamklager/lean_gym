@@ -1,0 +1,4 @@
+kivy
+https://github.com/kivymd/KivyMD/archive/master.zip
+matplotlib
+https://github.com/kivy-garden/graph/archive/master.zip
