@@ -1,4 +1,5 @@
 from utils import read_settings, write_setting
+from utils import export_user_data, import_user_data
 
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
@@ -7,6 +8,11 @@ from kivy.properties import StringProperty, NumericProperty, BooleanProperty
 from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogButtonContainer
 from kivymd.uix.button import MDButton, MDButtonText
 from kivymd.uix.widget import MDWidget
+from kivymd.uix.filemanager import MDFileManager
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText
+from kivy.metrics import dp
+import os
+from datetime import datetime
 
 from kivy.lang.builder import Builder
 Builder.load_file("screens/settings/settings_screen.kv")
@@ -40,6 +46,51 @@ class SettingsScreen(MDScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.conn_str = MDApp.get_running_app().conn_str
+        self.manager_open = False
+        self.file_manager_mode = "export"
+        self.file_manager = MDFileManager(
+            exit_manager = self.exit_manager,
+            select_path = self.select_path
+        )
+
+    def file_manager_open(self, mode):
+        self.file_manager_mode = mode
+        self.file_manager.show(
+            os.path.expanduser("~"))
+        self.manager_open = True
+
+    def select_path(self, path: str):
+        if self.file_manager_mode == "export":
+            if not os.path.isdir(path):
+                msg_str = "Invalid folder!"
+            else:
+                file_name = datetime.today().strftime('%Y%m%d_%H%M%S') + "_lean_gym_data.json"
+                export_user_data(
+                    output_path = path + '/' + file_name,
+                    conn_str = self.conn_str
+                )
+                msg_str = "Data exported!"
+        elif self.file_manager_mode == "import":
+            if path.endswith("_lean_gym_data.json") and not os.path.isdir(path):
+                import_user_data(
+                    input_path = path,
+                    conn_str = self.conn_str
+                )
+                msg_str = "Data imported!"
+            else:
+                msg_str = "Invalid file!"
+        self.exit_manager()
+        MDSnackbar(
+            MDSnackbarText(text=msg_str),
+            y=dp(24),
+            pos_hint={"center_x": 0.5},
+            size_hint_x=0.8,
+        ).open()
+
+
+    def exit_manager(self, *args):
+        self.manager_open = False
+        self.file_manager.close()
 
     def on_pre_enter(self, *args):
         self.settings = read_settings(self.conn_str)
@@ -84,7 +135,7 @@ class SettingsScreen(MDScreen):
                     style="text",
                     on_release=lambda _: self.error_message.dismiss()
                 ),
-                spacing="8dp"
+                spacing=dp(8)
             )
         )
         self.error_message.open()

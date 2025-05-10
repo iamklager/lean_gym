@@ -31,6 +31,7 @@ To run and deploy the app on both Android and iOS, you can use [Buildozer](https
 - Python: + Kivy, KivyMD, Matplotlib
 - SQLite3
 - Buildozer
+- json
 
 ## Functionality
 
@@ -38,7 +39,7 @@ On the app's home screen, you can start, add, edit and delete workouts.
 
 During a workout, selecting an exercise will bring you to a screen displaying either your last session's sets as a table or this exercise's history as a chart, as well as the set's of your current session. After each set, you will enter a pause screen, displaying the countdown until the next exercise. You can always skip this. During each workout, you can also track your bodyweight, and view its history.
 
-In the settings screen, you can adjust your countdown time, and whether or not your phone should vibrate or play a sound at the end of your pause. Here you can also export and import your data.
+In the settings screen, you can adjust your countdown time, and whether or not your phone should vibrate or play a sound at the end of your pause. Here you can also export and import your data. Note that exported data is stored as json, and that importing data will overwrite all existing data.
 
 
 ## Implementation Details
@@ -59,11 +60,13 @@ The UI was built in KivyMD, and the Matplotlib was used for the charts. Tables a
 ## Demo Screenshots
 
 <p align = "center">
-  <img src = ".github/screenshot_1.png" width = "300" />
-  <img src = ".github/screenshot_2.png" width = "300" />
-  <img src = ".github/screenshot_3.png" width = "300" />
+  <img src = ".github/screenshot_1.png" width = "175" />
+  <img src = ".github/screenshot_2.png" width = "175" />
+  <img src = ".github/screenshot_3.png" width = "175" />
+  <img src = ".github/screenshot_4.png" width = "175" />
   <br>
-  <img src = ".github/screenshot_4.png" width = "300" />
-  <img src = ".github/screenshot_5.png" width = "300" />
-  <img src = ".github/screenshot_6.png" width = "300" />
+  <img src = ".github/screenshot_5.png" width = "175" />
+  <img src = ".github/screenshot_6.png" width = "175" />
+  <img src = ".github/screenshot_7.png" width = "175" />
+  <img src = ".github/screenshot_8.png" width = "175" />
 </p>

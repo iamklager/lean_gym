@@ -20,7 +20,7 @@ class MyApp(MDApp):
         super().__init__(**kwargs)
         self.current_workout  = ''
         self.current_exercise = ''
-        self.previous_screen  = '' # To back to the right screen after adding exercises to workouts (either during a workout or in general)
+        self.previous_screen  = '' # To go back to the right screen after adding exercises to workouts (either during a workout or in general)
         self.conn_str = os.path.abspath("user.db")
         #self.pause_over_sound = SoundLoader.load(os.path.abspath("alarm_sound.wav")) # Does not work with kivymd for some reason.
 

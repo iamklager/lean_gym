@@ -19,6 +19,9 @@ from .db.add_exercise_to_workout import add_exercise_to_workout
 from .db.delete_workout import delete_workout
 from .db.delete_exercise_from_workout import delete_exercise_from_workout
 
+from .db.export_user_data import export_user_data
+from .db.import_user_data import import_user_data
+
 
 from .charting.plot_weight_history import plot_weight_history
 from .charting.plot_exercise_history import plot_exercise_history

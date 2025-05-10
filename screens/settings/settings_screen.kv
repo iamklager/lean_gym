@@ -124,6 +124,7 @@
                     pos_hint: {"center_x": .5, "center_y": .5}
                     icon: "database-export"
                     style: "small"
+                    on_press: root.file_manager_open("export")
 
         MDDivider:
 
@@ -146,6 +147,7 @@
                     pos_hint: {"center_x": .5, "center_y": .5}
                     icon: "database-import"
                     style: "small"
+                    on_press: root.file_manager_open("import")
 
         MDDivider:
 
