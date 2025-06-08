@@ -9,7 +9,8 @@ def read_workout(workout, conn_str):
         """
             SELECT Exercise
             FROM workout_contents
-            WHERE Workout = ?;
+            WHERE Workout = ?
+            ORDER BY ExerciseID ASC;
         """,
         [workout]
     )

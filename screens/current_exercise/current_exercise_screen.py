@@ -56,15 +56,16 @@ class NewSetItem(MDFloatLayout):
         write_last_session(app.current_workout, app.conn_str)
         # Updating the UI
         last_sets = read_last_sets(app.current_exercise, app.conn_str)
-        last_sets = last_sets[len(last_sets) - 1]
-        app.root.ids.screen_manager.get_screen("currentexercise").ids.current_set_list.add_widget(
-            LastSetItem(
-                intensity      = str(last_sets[0]),
-                unit_intensity = last_sets[1],
-                volume         = str(last_sets[2]),
-                unit_volume    = last_sets[3]
+        if len(last_sets) != 0:
+            last_sets = last_sets[len(last_sets) - 1]
+            app.root.ids.screen_manager.get_screen("currentexercise").ids.current_set_list.add_widget(
+                LastSetItem(
+                    intensity      = str(last_sets[0]),
+                    unit_intensity = last_sets[1],
+                    volume         = str(last_sets[2]),
+                    unit_volume    = last_sets[3]
+                )
             )
-        )
         self.ids.new_intensity.text = ''
         self.ids.new_volume.text    = ''
         # Switching to pause timer

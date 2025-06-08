@@ -1,5 +1,5 @@
 from kivymd.app import MDApp
-from utils import read_all_exercises
+from utils import read_all_exercises, split_exercise_name
 
 from kivy.properties import StringProperty
 from kivymd.uix.list import MDListItem
@@ -12,6 +12,9 @@ Builder.load_file("screens/add_exercise/add_exercise_screen.kv")
 
 class ExerciseItem(MDListItem):
     name = StringProperty('')
+    exercise = StringProperty()
+    type = StringProperty()
+    hands = StringProperty()
 
     def on_press(self):
         app = MDApp.get_running_app()
@@ -43,7 +46,12 @@ class AddExerciseScreen(MDScreen):
 
     def populate_list(self):
         self.ids.exercise_list.data = [
-            {"name": exercise} for exercise in self.filtered_exercises
+            {
+                "name": exercise,
+                "exercise": split_exercise_name(exercise)[0],
+                "type": split_exercise_name(exercise)[1],
+                "hands": split_exercise_name(exercise)[2]
+            } for exercise in self.filtered_exercises
         ]
 
     def filter_list(self, search_text):

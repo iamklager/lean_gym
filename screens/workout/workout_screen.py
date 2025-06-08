@@ -1,4 +1,4 @@
-from utils import read_workout
+from utils import read_workout, split_exercise_name
 
 from kivy.properties import StringProperty
 from kivymd.app import MDApp
@@ -17,6 +17,9 @@ class BodyWeightItem(MDListItem):
 class WorkoutListItem(MDListItem):
     id = StringProperty('')
     name = StringProperty('')
+    exercise = StringProperty()
+    type = StringProperty()
+    hands = StringProperty()
 
     def on_press(self):
         app = MDApp.get_running_app()
@@ -69,8 +72,12 @@ class WorkoutScreen(MDScreen):
     def add_exercise(self, name):
         id = name.lower()
         id = id.replace(" ", "")
+        exercise_info = split_exercise_name(name)
         self.ids.workout_list.add_widget(
-            WorkoutListItem(id=id, name=name)
+            WorkoutListItem(
+                id=id, name=name, exercise=exercise_info[0],
+                type=exercise_info[1], hands=exercise_info[2]
+            )
         )
 
     def finish_workout(self):

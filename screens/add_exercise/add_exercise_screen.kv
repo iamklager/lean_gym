@@ -1,7 +1,10 @@
 <ExerciseItem>:
-    name: ''
     MDListItemHeadlineText:
-        text: root.name
+        text: root.exercise
+    MDListItemSupportingText:
+        text: root.type
+    MDListItemTertiaryText:
+        text: root.hands
 
 
 <AddExerciseScreen>:
@@ -26,7 +29,7 @@
             do_scroll_x: False
 
             MDRecycleGridLayout:
-                default_size: None, dp(56)
+                default_size: None, dp(88)
                 default_size_hint: 1, None
                 size_hint_y: None
                 height: self.minimum_height

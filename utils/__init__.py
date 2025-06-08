@@ -25,3 +25,6 @@ from .db.import_user_data import import_user_data
 
 from .charting.plot_weight_history import plot_weight_history
 from .charting.plot_exercise_history import plot_exercise_history
+
+
+from .other.split_exercise_name import split_exercise_name
