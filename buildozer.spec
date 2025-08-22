@@ -7,13 +7,13 @@ title = LeanGym
 package.name = leangym
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = leangym.test
+package.domain = org.leangym
 
 # (str) Source code where the main.py live
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py, png, jpg, kv, atlas, db, wav
+source.include_exts = py,png,jpg,kv,atlas,db
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -22,7 +22,8 @@ source.include_exts = py, png, jpg, kv, atlas, db, wav
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = database_prep
+#source.exclude_dirs = tests, bin, venv
+source.exclude_dirs = .venv, bin, .github, documentation, database_prep
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
@@ -37,7 +38,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy==2.3.1, sqlite3, https://github.com/kivymd/KivyMD/archive/master.zip, filetype, materialyoucolor, asynckivy, asyncgui, matplotlib, https://github.com/kivy-garden/graph/archive/master.zip, plyer
+requirements = python3,kivy,https://github.com/kivymd/KivyMD/archive/master.zip,materialyoucolor,plyer,asynckivy,asyncgui,android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -67,7 +68,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-# osx.kivy_version = 1.9.1
+osx.kivy_version = 1.9.1
 
 #
 # Android specific
@@ -96,6 +97,7 @@ fullscreen = 0
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
 #android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
+android.permissions = READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
@@ -104,7 +106,7 @@ fullscreen = 0
 #android.api = 31
 
 # (int) Minimum API your APK / AAB will support.
-#android.minapi = 21
+android.minapi = 25
 
 # (int) Android SDK version to use
 #android.sdk = 20
@@ -322,6 +324,7 @@ android.allow_backup = True
 
 # (str) python-for-android branch to use, defaults to master
 #p4a.branch = master
+p4a.branch = develop
 
 # (str) python-for-android specific commit to use, defaults to HEAD, must be within p4a.branch
 #p4a.commit = HEAD

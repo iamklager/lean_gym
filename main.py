@@ -6,10 +6,8 @@ from kivy.core.audio import SoundLoader
 
 from screens import *
 
-
-from kivy.core.window import Window
-Window.size = (300, 680)
-
+# from kivy.core.window import Window
+# Window.size = (300, 560)
 
 class MyApp(MDApp):
     current_workout:  str
@@ -27,7 +25,6 @@ class MyApp(MDApp):
     def build(self):
         self.theme_cls.theme_style = "Light"
         self.theme_cls.primary_palette = "Steelblue"
-
         sm = SManager()
         sm.ids.screen_manager.add_widget(WorkoutsScreen(name="workouts"))
         sm.ids.screen_manager.add_widget(WorkoutScreen(name="workout"))
@@ -37,7 +34,6 @@ class MyApp(MDApp):
         sm.ids.screen_manager.add_widget(AddExerciseScreen(name="addexercise"))
         sm.ids.screen_manager.add_widget(BodyWeightScreen(name="bodyweight"))
         sm.ids.screen_manager.add_widget(SettingsScreen(name="settings"))
-
         return sm
 
     def on_start(self):

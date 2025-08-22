@@ -1,6 +1,6 @@
-from utils import read_weight_history, write_bodyweight, plot_weight_history
+from utils import read_weight_history, write_bodyweight#, plot_weight_history
 
-from kivy_garden.matplotlib import FigureCanvasKivyAgg
+#from kivy_garden.matplotlib import FigureCanvasKivyAgg
 from kivy.properties import StringProperty
 from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
@@ -73,15 +73,15 @@ class BodyWeightScreen(MDScreen):
     def plot_chart(self):
         app = MDApp.get_running_app()
         history = read_weight_history(app.conn_str)
-        chart = plot_weight_history(
-            history,
-            app.theme_cls.primaryColor,
-            app.theme_cls.backgroundColor
-        )
-        self.ids.weight_history.clear_widgets()
-        self.ids.weight_history.add_widget(
-            FigureCanvasKivyAgg(chart)
-        )
+        #chart = plot_weight_history(
+        #    history,
+        #    app.theme_cls.primaryColor,
+        #    app.theme_cls.backgroundColor
+        #)
+        #self.ids.weight_history.clear_widgets()
+        #self.ids.weight_history.add_widget(
+        #    FigureCanvasKivyAgg(chart)
+        #)
 
     def back_btn(self):
         app = MDApp.get_running_app()

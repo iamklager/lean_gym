@@ -52,11 +52,25 @@ class SettingsScreen(MDScreen):
             exit_manager = self.exit_manager,
             select_path = self.select_path
         )
+        self.setup_platform()
+
+    def setup_platform(self):
+        from kivy.utils import platform
+        if platform == 'linux':
+            import os
+            self.default_path = os.path.expanduser("~")
+        elif platform == 'android':
+            from android.permissions import request_permissions, Permission
+            from android.storage import primary_external_storage_path
+            request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+            self.default_path = primary_external_storage_path()
 
     def file_manager_open(self, mode):
         self.file_manager_mode = mode
         self.file_manager.show(
-            os.path.expanduser("~"))
+            #os.path.expanduser("~")
+            self.default_path
+        )
         self.manager_open = True
 
     def select_path(self, path: str):
@@ -139,3 +153,6 @@ class SettingsScreen(MDScreen):
             )
         )
         self.error_message.open()
+
+    def back_btn(self):
+        ...
